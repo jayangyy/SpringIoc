@@ -19,7 +19,7 @@
  <context-param>  
     <param-name>contextConfigLocation</param-name>  
     <param-value>springmvc.root</param-value>  
-    <!--  <param-value>/META-INF/JDBC-CONTEXT.xml</param-value>需要初始化的其他XML文件，比如事务配置，数据库访问配置等 -->
+    <!--   <param-value> /META-INF/JDBC-CONTEXT.xml</param-value>需要初始化的其他XML文件，比如事务配置，数据库访问配置等 -->
   </context-param>
     
     <!-- 字符集 过滤器  -->  
