@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="boss" class="com.domains.SetIocTest">
+		<property name="iocmodel" ref="iocmodel"></property>
+		<!--构造函数注入 <constructor-arg ref="iocmodel"></constructor-arg> -->
+	</bean>
+	<bean id="iocmodel" class="com.domains.IocModel"></bean>
+	<bean id="boss1" class="com.ioc.domains.Boss">
+		<property name="car" ref="car" />
+		<property name="office" ref="office" />
+	</bean>
+	<bean id="office" class="com.ioc.domains.Office">
+		<property name="officNo" value="002" />
+	</bean>
+	<bean id="car" class="com.ioc.domains.Car" scope="singleton">
+		<property name="brand" value="红旗 CA72" />
+		<property name="price" value="2000" />
+	</bean>
+		<!-- <bean id="offic1" class="com.ioc.domains.Offic1">
+		<property name="officNo" value="002" />
+	</bean> -->
+	<!-- <bean id="car1" class="com.ioc.domains.Car1" scope="singleton">
+		<property name="brand" value="红旗 CA72" />
+		<property name="price" value="2000" />
+	</bean> -->
+	<bean id="boss2" class="com.ioc.domains.Boss1">
+	</bean>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!--配置bean,配置后该类由spring管理静态工厂 -->
+	<!-- <bean name="springAction" class="com.bless.springdemo.action.SpringAction" 
+		> (3)使用静态工厂的方法注入对象,对应下面的配置文件(3) <property name="staticFactoryDao" ref="staticFactoryDao"></property> 
+		</property> </bean> -->
+	<!--(3)此处获取对象的方式是从工厂类中获取静态方法示例工厂 -->
+	<!-- <bean name="staticFactoryDao" class="com.bless.springdemo.factory.DaoFactory" 
+		factory-method="getStaticFactoryDaoImpl"></bean> 配置bean,配置后该类由spring管理 <bean 
+		name="springAction" class="com.bless.springdemo.action.SpringAction"> (4)使用实例工厂的方法注入对象,对应下面的配置文件(4) 
+		<property name="factoryDao" ref="factoryDao"></property> </bean> -->
+	<!--(4)此处获取对象的方式是从工厂类中获取实例方法 -->
+	<!-- <bean name="daoFactory" class="com.bless.springdemo.factory.DaoFactory"></bean> 
+		<bean name="factoryDao" factory-bean="daoFactory" factory-method="getFactoryDaoImpl"></bean> -->
+</beans>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>SpringMvcFrameworTestProject</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!--  <display-name>TrainOfficWork</display-name> 
+          <context-param>  
+    <param-name>webAppRootKey</param-name>  
+    <param-value>springmvc.root</param-value>  
+</context-param>   -->
+
+ <context-param>  
+    <param-name>contextConfigLocation</param-name>  
+    <param-value>springmvc.root</param-value>  
+    <!--  <param-value>/META-INF/JDBC-CONTEXT.xml</param-value>需要初始化的其他XML文件，比如事务配置，数据库访问配置等 -->
+  </context-param>
+    
+    <!-- 字符集 过滤器  -->  
+    <filter>  
+        <filter-name>CharacterEncodingFilter</filter-name>  
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>  
+        <init-param>  
+            <param-name>encoding</param-name>  
+            <param-value>UTF-8</param-value>  
+        </init-param>  
+        <init-param>  
+            <param-name>forceEncoding</param-name>  
+            <param-value>true</param-value>  
+        </init-param>  
+    </filter>  
+    <filter-mapping>  
+        <filter-name>CharacterEncodingFilter</filter-name>  
+        <url-pattern>/*</url-pattern>  
+    </filter-mapping> 
+    <!-- Spring的log4j监听器 -->  
+    <listener>  
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>  
+    </listener> 
+    
+    
+    <!-- SPRING配置--> 
+    <servlet>
+        <servlet-name>SpringMvcFrameworTestProject</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> 
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup><!-- load-on-startup必须放在最后 -->
+    </servlet>
+    <!-- Spring MVC配置文件结束 -->
+    
+    <servlet-mapping>
+        <servlet-name>SpringMvcFrameworTestProject</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>
