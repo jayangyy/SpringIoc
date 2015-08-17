@@ -4,5 +4,6 @@ public class UserModel {
 private Integer uuid;
 private Integer userId;
 private String name;
-private String age;
+private String age;  
+private String testGit;
 }
