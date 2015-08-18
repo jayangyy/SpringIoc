@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.domains.TRegister" table="t_register">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <!-- 我在MYSQL中并没有设置该字段递增，但在Hibernate中依然可以设置为递增 -->
+            <generator class="increment" />
+        </id>
+        <property name="userName" type="java.lang.String">
+            <column name="userName" length="30" />
+        </property>
+        <property name="userPwd" type="java.lang.String">
+            <column name="userPwd" length="30" />
+        </property>
+        <property name="sex" type="java.lang.String">
+            <column name="sex" length="10" />
+        </property>
+        <property name="age" type="java.lang.Integer">
+            <column name="age" />
+        </property>
+    </class>
+</hibernate-mapping>

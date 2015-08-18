@@ -28,10 +28,8 @@
 
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<!-- <bean id="auth" class="com.domain.services.SimpleAspect"> </bean> -->
-	<!-- <aop:config proxy-target-class="true"> 
-	<aop:aspect id="authAspect" 
-		ref="auth">
-		 <aop:pointcut id="authP" expression="execution(* com.domain.services.*Service*.*(..))" 
+	<!-- <aop:config proxy-target-class="true"> <aop:aspect id="authAspect" 
+		ref="auth"> <aop:pointcut id="authP" expression="execution(* com.domain.services.*Service*.*(..))" 
 		/> <aop:around pointcut-ref="authP" method="around" /> </aop:aspect> </aop:config> -->
 	<!-- //aop切入配置 -->
 	<bean id="conversion-service"
@@ -46,11 +44,30 @@
 	<!-- 如果当前请求为“/”时，则转发到“/helloworld/index” -->
 	<mvc:view-controller path="/"
 		view-name="forward:/helloworld/index" />
-		
-		
-		<!-- 事务配置 -->
-		   <context:annotation-config />
-		   <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+	<!-- 事务配置 -->
+	  <!-- 数据库映射 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+      <property name="url" value="jdbc:mysql://localhost:3307/hiblatetest" />
+      <property name="username" value="root" />
+      <property name="password" value="Jayang880706" />
+   </bean>
+   
+<context:annotation-config />
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		 <property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="WEB-INF/hibernate.cfg.xml" />
+		<!-- <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" 
+			/> --> 
+	</bean>
+	<!-- 声明式事务 -->  
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">  
+        <property name="sessionFactory" ref="sessionFactory" />  
+    </bean> 
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 	<!-- 静态资源映射 -->
 	<mvc:resources mapping="/**" location="/WEB-INF/" />
 	<mvc:resources mapping="/**" location="/WEB-INF/themes/" />

@@ -1,8 +1,15 @@
 package com.domains;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Entity;
+import org.hibernate.cfg.Configuration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import com.commmon.domains.HibernateUtil;
 import com.domain.services.PersonService;
 import com.ioc.domains.Boss;
 import com.ioc.domains.Boss1;
@@ -32,8 +39,10 @@ public class Test {
 		personService.editPerson(personName);
 		((FileSystemXmlApplicationContext) appContext).close();*/
 		
-		AnnotationTranscation trans=new AnnotationTranscation();
-		trans.TestTrans();
+		/*AnnotationTranscation trans=new AnnotationTranscation();
+		trans.TestTrans();*/
+		Session session = HibernateUtil.currentSession();//Éú³ÉSessionÊµÀý
+	
 	}
 
 }
