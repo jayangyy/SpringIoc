@@ -24,9 +24,12 @@
 		<property name="validationMessageSource" ref="validatemessageSource" />
 	</bean>
 
-	<!-- //aop切入配置 ,这个自动代理配置必须在<context:component-scan中定义要扫描的AOP包,会与IOC的配置有点点冲突过滤器使用有冲突 -->
+	<!-- //aop切入配置 ,这个自动代理配置可以在<context:component-scan中定义要扫描的AOP包,否则会一个个BEAN 
+		的配置，但是为了区分AOP可以一个个配置 -->
 
 	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<!-- <aop:aspectj-autoproxy> <aop:include name="包含你的AOPBEAN 名字 如 AUTH" 可写可不写 
+		在下面配置了BEAN 就可以了其实/> </aop:aspectj-autoproxy> -->
 	<!-- <bean id="auth" class="com.domain.services.SimpleAspect"> </bean> -->
 	<!-- <aop:config proxy-target-class="true"> <aop:aspect id="authAspect" 
 		ref="auth"> <aop:pointcut id="authP" expression="execution(* com.domain.services.*Service*.*(..))" 
@@ -44,30 +47,36 @@
 	<!-- 如果当前请求为“/”时，则转发到“/helloworld/index” -->
 	<mvc:view-controller path="/"
 		view-name="forward:/helloworld/index" />
-
+	<context:component-scan base-package="com.domains" />
 
 	<!-- 事务配置 -->
-	  <!-- 数据库映射 -->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-      <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-      <property name="url" value="jdbc:mysql://localhost:3307/hiblatetest" />
-      <property name="username" value="root" />
-      <property name="password" value="Jayang880706" />
-   </bean>
-   
-<context:annotation-config />
+	<!-- 数据库映射 -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3307/hiblatetest" />
+		<property name="username" value="root" />
+		<property name="password" value="Jayang880706" />
+	</bean>
+
+	<context:annotation-config />
+<!-- 	<tx:annotation-driven transaction-manager="transactionManager" /> -->
+	<tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager" />
+	<!-- 声明式事务 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+		<property name="dataSource" ref="dataSource"></property> </bean> -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		 <property name="dataSource" ref="dataSource" />
+		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="WEB-INF/hibernate.cfg.xml" />
-		<!-- <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" 
-			/> --> 
 	</bean>
-	<!-- 声明式事务 -->  
-    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">  
-        <property name="sessionFactory" ref="sessionFactory" />  
-    </bean> 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+
 	<!-- 静态资源映射 -->
 	<mvc:resources mapping="/**" location="/WEB-INF/" />
 	<mvc:resources mapping="/**" location="/WEB-INF/themes/" />
@@ -92,7 +101,7 @@
 	<!-- 开启controller注解支持 -->
 	<!-- use-default-filters="false" 只扫描指定的注解 -->
 	<context:component-scan
-		base-package="com.demo.web.controllers,com.ioc.domains,com.domain.services,com.annotation,com.transcation.domains">
+		base-package="com.demo.web.controllers,com.ioc.domains,com.domain.services,com.annotation,com.transcation.domains,com.domains">
 		<!-- 若需要添加对CONTROLLER的AOP支持需要扫描包 -->
 		<!-- use-default-filters="false"> -->
 		<!-- <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" 

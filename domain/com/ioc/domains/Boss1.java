@@ -8,10 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import com.domain.services.PersonService;
 @Scope("prototype")//这样，当从 Spring 容器中获取 boss Bean 时，每次返回的都是新的实例了。
 //注解自动注入
 @Component("boss2")
 public class Boss1 {
+	@Resource
+	private PersonService person;
 	@Resource
 	private Car1 car2;
 	@Resource(name = "car1")

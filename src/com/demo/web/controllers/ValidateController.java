@@ -29,6 +29,7 @@ import com.domains.Authpassport;
 import com.domains.BaseController;
 import com.domains.SetIocTest;
 import com.domains.TRegister;
+import com.domains.Test;
 import com.domains.ValidateModel;
 import com.ioc.domains.Boss;
 import com.ioc.domains.Boss1;
@@ -36,7 +37,7 @@ import com.transcation.domains.AnnotationTranscation;
 
 @Controller
 @RequestMapping(value = "/validate")
-public class ValidateController{
+public class ValidateController extends BaseController{
 	@Autowired(required = true)
 	private PersonService person;
 
@@ -64,10 +65,11 @@ public class ValidateController{
 			 * personService.deletePerson(personName);
 			 * personService.editPerson(personName); throw new Exception("444");
 			 */
-		AnnotationTranscation trans = new AnnotationTranscation();
+		/*AnnotationTranscation trans = new AnnotationTranscation();
 		trans.TestTrans();
-		throw new RuntimeException("edit person throw exception");
+		throw new RuntimeException("edit person throw exception");*/
 	// return "validatetest";
+		return null;
 	}
 
 	/// 验证后台注解模型格式
@@ -91,9 +93,8 @@ public class ValidateController{
 
 	/// hiblatetest
 	@RequestMapping(value = "/saveuser", method = { RequestMethod.POST })
-	@Transactional(rollbackFor=Exception.class)
 	public String saveuser(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String userName = request.getParameter("userName");
+		/*String userName = request.getParameter("userName");
         String userPwd = request.getParameter("userPwd");
         String sex = request.getParameter("sex");
         int age = Integer.parseInt(request.getParameter("age"));
@@ -105,13 +106,15 @@ public class ValidateController{
         rg.setUserPwd(userPwd);
         
         Session session = HibernateUtil.currentSession();//生成Session实例
-     
+*/     
         
        /// try
         //{
-            session.save(rg);    //保存持久类对象
+      // session.beginTransaction();  
+            //session.save(rg);    //保存持久类对象
+           //session.getTransaction().commit();    
                  //提交到数据库
-            
+          
           // throw new Exception("d");
          //   response.sendRedirect("registerOK.jsp");
         //}
@@ -120,9 +123,10 @@ public class ValidateController{
             e.printStackTrace();
             tx.rollback();
         }*/
-		//return "hiblate";
+		new Test().testAspect();
+		return "hiblate";
             //测试事务
-            throw new Exception("edit person throw exception");
+          //  throw new Exception("edit person throw exception");
 	}
 
 }
