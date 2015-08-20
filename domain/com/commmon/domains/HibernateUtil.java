@@ -32,7 +32,7 @@ public class HibernateUtil {
         //Open a new Session,if this Thread has none yet
         if(s == null || !s.isOpen())
         {
-            s = sessionFactory.openSession();
+            s = sessionFactory.getCurrentSession();
             session.set(s);
         }
         return s;

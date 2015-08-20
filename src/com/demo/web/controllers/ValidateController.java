@@ -34,13 +34,18 @@ import com.domains.ValidateModel;
 import com.ioc.domains.Boss;
 import com.ioc.domains.Boss1;
 import com.transcation.domains.AnnotationTranscation;
+import com.transcation.domains.UserDaoImpl;
 
 @Controller
 @RequestMapping(value = "/validate")
 public class ValidateController extends BaseController{
 	@Autowired(required = true)
 	private PersonService person;
-
+	@Autowired(required = true)
+	private UserDaoImpl  userDao;
+	@Autowired(required = true)
+	private AnnotationTranscation  AnnotationTranscation;
+	
 	@RequestMapping(value = "/test", method = { RequestMethod.GET })
 	@SystemControllerLog(description = "删除用户") // 基于注解的AOP风格日志记录，也可设置为基于注解的拦截器风格日志记录
 	public String test(Model model) throws Exception {
@@ -93,6 +98,7 @@ public class ValidateController extends BaseController{
 
 	/// hiblatetest
 	@RequestMapping(value = "/saveuser", method = { RequestMethod.POST })
+	
 	public String saveuser(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		/*String userName = request.getParameter("userName");
         String userPwd = request.getParameter("userPwd");
@@ -123,7 +129,7 @@ public class ValidateController extends BaseController{
             e.printStackTrace();
             tx.rollback();
         }*/
-		new Test().testAspect();
+		AnnotationTranscation.testAspect();
 		return "hiblate";
             //测试事务
           //  throw new Exception("edit person throw exception");

@@ -47,15 +47,8 @@
 	<!-- 如果当前请求为“/”时，则转发到“/helloworld/index” -->
 	<mvc:view-controller path="/"
 		view-name="forward:/helloworld/index" />
-<context:component-scan
-		base-package="com.demo.web.controllers,com.ioc.domains,com.domain.services,com.annotation,com.domains,com.transcation.domains">
-<!-- 		use-default-filters="false"> -->
-		<!-- 若需要添加对CONTROLLER的AOP支持需要扫描包 -->		
-<!-- 		 <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" /> 
-		 		 <context:include-filter type="annotation" expression="org.springframework.stereotype.Service" /> 
-		 		 		 <context:include-filter type="annotation" expression="org.springframework.stereotype.Component" /> 
-	 <context:include-filter type="annotation" expression="org.springframework.transaction.annotation.Transactional" />  -->
-	</context:component-scan>
+	<context:component-scan base-package="com.domains" />
+
 	<!-- 事务配置 -->
 	<!-- 数据库映射 -->
 	<bean id="dataSource"
@@ -107,7 +100,13 @@
 		class="com.domains.MyAcceptHeaderLocaleResolver"/> -->
 	<!-- 开启controller注解支持 -->
 	<!-- use-default-filters="false" 只扫描指定的注解 -->
-	
+	<context:component-scan
+		base-package="com.demo.web.controllers,com.ioc.domains,com.domain.services,com.annotation,com.transcation.domains,com.domains"  use-default-filters="false">
+		<!-- 若需要添加对CONTROLLER的AOP支持需要扫描包 -->
+		
+		 <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" 
+			/> 
+	</context:component-scan>
 	<bean id="exceptionResolver" class="com.domains.MyExceptionHandler" />
 	<!-- 视图解析器 -->
 	<bean
