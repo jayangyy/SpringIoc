@@ -21,6 +21,8 @@ import com.commmon.domains.HibernateUtil;
 import com.domain.services.PersonService;
 import com.ioc.domains.Boss;
 import com.ioc.domains.Boss1;
+import com.ioc.domains.Car;
+import com.ioc.domains.TestGenic;
 import com.transcation.domains.AnnotationTranscation;
 @Service
 public class Test {
@@ -54,9 +56,8 @@ public class Test {
 		//personService.editPerson(personName);
 		((FileSystemXmlApplicationContext) appContext).close();*/
 		 
-		//testAspect();
-		/*AnnotationTranscation trans=new AnnotationTranscation();
-		trans.TestTrans();*/
+		String s="";
+		s="5";
 		Session session = HibernateUtil.currentSession();//Éú³ÉSessionÊµÀý
 	
 	}

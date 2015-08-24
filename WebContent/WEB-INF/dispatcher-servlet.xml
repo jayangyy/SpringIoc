@@ -48,7 +48,7 @@
 	<mvc:view-controller path="/"
 		view-name="forward:/helloworld/index" />
 <context:component-scan
-		base-package="com.demo.web.controllers,com.ioc.domains,com.domain.services,com.annotation,com.domains,com.transcation.domains">
+		base-package="com.demo.web.controllers,com.ioc.domains,com.domain.services,com.annotation,com.domains,com.transcation.domains,com.cssdriver.domains">
 <!-- 		use-default-filters="false"> -->
 		<!-- 若需要添加对CONTROLLER的AOP支持需要扫描包 -->		
 <!-- 		 <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" /> 

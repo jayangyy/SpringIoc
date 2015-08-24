@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.domain.services.PersonService;
 import com.domains.TRegister;
 @Component
-@Service("userService")
+@Service("userService1")
 public class UserServiceImpl {
 	@Autowired(required = true)
 	private PersonService person;

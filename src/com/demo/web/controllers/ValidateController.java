@@ -2,6 +2,7 @@ package com.demo.web.controllers;
 
 import java.security.NoSuchAlgorithmException;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -10,6 +11,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -23,16 +25,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.annotation.SystemControllerLog;
+import com.annotation.User;
 import com.commmon.domains.HibernateUtil;
+import com.cssdriver.domains.Component1;
+import com.cssdriver.domains.ConcreteTimeDecorator;
 import com.domain.services.PersonService;
 import com.domains.Authpassport;
 import com.domains.BaseController;
+import com.domains.IDAO;
+import com.domains.MyUserIDao;
 import com.domains.SetIocTest;
 import com.domains.TRegister;
 import com.domains.Test;
 import com.domains.ValidateModel;
 import com.ioc.domains.Boss;
 import com.ioc.domains.Boss1;
+import com.ioc.domains.Car;
+import com.ioc.domains.Offic1;
+import com.ioc.domains.TestGenic;
 import com.transcation.domains.AnnotationTranscation;
 import com.transcation.domains.UserDaoImpl;
 
@@ -41,11 +51,21 @@ import com.transcation.domains.UserDaoImpl;
 public class ValidateController extends BaseController{
 	@Autowired(required = true)
 	private PersonService person;
-	@Autowired(required = true)
+	@Autowired(required = false)
 	private UserDaoImpl  userDao;
 	@Autowired(required = true)
 	private AnnotationTranscation  AnnotationTranscation;
-	
+	@Autowired
+	@Qualifier(value = "baseDao")
+	private TestGenic<Offic1> testGenic;// fan xing ce shi 
+	@Autowired
+	@Qualifier(value = "TestUserService")
+	private MyUserIDao<Car> userServicesMy;
+	/*@Autowired
+	public ConcreteTimeDecorator timedecorator;*/
+	@Resource
+	@Qualifier(value = "userRepository")
+	IDAO<Car> userPersistence;//泛型注入，需要先定义接口 或者基类 否则注入是不会成功的，目的是得到注入的泪的实例，比如这里得到Car的实例，但是是接口调用的
 	@RequestMapping(value = "/test", method = { RequestMethod.GET })
 	@SystemControllerLog(description = "删除用户") // 基于注解的AOP风格日志记录，也可设置为基于注解的拦截器风格日志记录
 	public String test(Model model) throws Exception {
@@ -74,6 +94,11 @@ public class ValidateController extends BaseController{
 		trans.TestTrans();
 		throw new RuntimeException("edit person throw exception");*/
 	// return "validatetest";
+		//userPersistence.insert(new Car());//泛型注入测试
+		//testGenic.save(new Offic1());
+		//userServicesMy.MyTestDaoMethod();
+		///testGenic.doSomething(new Offic1());
+	//	timedecorator.fun();
 		return null;
 	}
 

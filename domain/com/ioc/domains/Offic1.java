@@ -1,9 +1,11 @@
 package com.ioc.domains;
 
+import java.io.Serializable;
+
 import org.springframework.stereotype.Component;
 
-@Component
-public class Offic1 {
+@Component("Offic1")
+public class Offic1  extends TestGenic<Offic1>  {
 	private String officNo="001";
 	@Override
 	public String toString(){		
